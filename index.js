@@ -1,4 +1,6 @@
-var io = require('socket.io-client'); 
+require('handlebars');
+
+var io = require('socket.io-client');
 var toolbarTemplate = require("./toolbar.hbs");
 var printscreensTemplate = require("./printscreens.hbs");
 
