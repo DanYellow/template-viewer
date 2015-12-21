@@ -3,8 +3,8 @@ require('handlebars');
 var io = require('socket.io-client');
 var toolbarTemplate = require("./toolbar.hbs");
 var printscreensTemplate = require("./printscreens.hbs");
-
-exports.TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort) {
+console.log(io);
+var TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort) {
   if (!socketServerPort) {
       socketServerPort = 5555;
   }
@@ -73,3 +73,5 @@ exports.TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort
     this.isToolbarCollapsed = !this.isToolbarCollapsed;
   }
 }
+
+module.exports = TemplateViewerToolbar;
