@@ -26,13 +26,13 @@ exports.TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort
 
     var elementSelectedIndex = null;
     var getItemSelected = function getItemSelected (index) {
-      elementSelectedIndex = index;
-
       var currentPage = {index: index, isToolbarCollapsed: self.isToolbarCollapsed}
       window.sessionStorage.setItem('_toolbarCurrentPage', JSON.stringify(currentPage));
-    }
+    };
 
     window.addEventListener("load", function() {
+      document.body.insertAdjacentHTML('afterend', toolbarTemplate({printscreensDatas: "message.printscreensDatas", port: window.location.port}));
+
       var elementSelectedIndex = JSON.parse(window.sessionStorage.getItem('_toolbarCurrentPage')).index;
       if (!isNaN(elementSelectedIndex) ) {
         printscreensListItems[elementSelectedIndex].classList.add("active");
@@ -55,11 +55,9 @@ exports.TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort
 
     socket.on('printScreensEnded', function(message){
       generatePSBtn.disabled = false;
-      printscreensList.innerHTML = template({printscreensDatas: message.printscreensDatas, port: window.location.port})
+      printscreensList.innerHTML = printscreensTemplate({printscreensDatas: message.printscreensDatas, port: window.location.port})
       //document.location.reload();
     });
-
-    
   }
 
   this.init();

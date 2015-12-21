@@ -16,7 +16,7 @@
     "url": "https://github.com/DanYellow/template-viewer/issues"
   },
   "homepage": "https://github.com/DanYellow/template-viewer#readme",
-  "devDependencies": {
+  "bundledDependencies": {
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.11",
     "handlebars": "^4.0.5",
