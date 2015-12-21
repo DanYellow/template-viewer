@@ -19,7 +19,7 @@ var TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort) {
   var printscreensListItems = document.getElementsByClassName('printscreens-list__item');
   var generatePSBtn = document.getElementById('generatePS');
   
-  this.this.isToolbarCollapsed = true;
+  this.isToolbarCollapsed = true;
 
   this.init = function() {
     toolbarManager.addEventListener('click', function (e) {
