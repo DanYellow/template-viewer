@@ -3,7 +3,7 @@ require('handlebars');
 var io = require('socket.io-client');
 var toolbarTemplate = require("./toolbar.hbs");
 var printscreensTemplate = require("./printscreens.hbs");
-console.log(io);
+
 var TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort) {
   if (!socketServerPort) {
       socketServerPort = 5555;
@@ -11,58 +11,62 @@ var TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort) {
 
   var self = this;
 
-  var socket = io.connect('localhost:' + socketServerPort);
+  this.socket = io.connect('localhost:' + socketServerPort);
 
-  this.toolBar = document.getElementById('pages-overview-toolbar');
-  var toolbarManager = document.getElementById('toolbar__display-manager');
-  var printscreensList = document.getElementsByClassName('printscreens-list')[0];
-  var printscreensListItems = document.getElementsByClassName('printscreens-list__item');
-  var generatePSBtn = document.getElementById('generatePS');
-  
   this.isToolbarCollapsed = true;
 
   this.init = function() {
+    window.addEventListener("load", function() {
+      document.body.insertAdjacentHTML('afterend', toolbarTemplate({printscreensDatas: "message.printscreensDatas", port: window.location.port}));
+
+      self.bindEvents();
+
+      if (window.sessionStorage.getItem('_toolbarCurrentPage')) {
+        var elementSelectedIndex = JSON.parse(window.sessionStorage.getItem('_toolbarCurrentPage')).index;
+        if (!isNaN(elementSelectedIndex) ) {
+          self.printscreensListItems[elementSelectedIndex].classList.add("active");
+          self.printscreensListItems[elementSelectedIndex].scrollIntoView();
+        };
+      };
+    });
+  }
+    
+  this.init();
+
+
+  this.bindEvents = function bindEvents () {
+    self.toolBar = document.getElementById('pages-overview-toolbar');
+    self.toolbarManager = document.getElementById('toolbar__display-manager');
+    self.printscreensList = document.getElementsByClassName('printscreens-list')[0];
+    self.printscreensListItems = document.getElementsByClassName('printscreens-list__item');
+    self.generatePSBtn = document.getElementById('generatePS');
+
     toolbarManager.addEventListener('click', function (e) {
       this.toolbarStatusManager(this.isToolbarCollapsed);
     }, this);
 
-    var elementSelectedIndex = null;
-    var getItemSelected = function getItemSelected (index) {
-      var currentPage = {index: index, isToolbarCollapsed: self.isToolbarCollapsed}
-      window.sessionStorage.setItem('_toolbarCurrentPage', JSON.stringify(currentPage));
-    };
-
-    window.addEventListener("load", function() {
-      document.body.insertAdjacentHTML('afterend', toolbarTemplate({printscreensDatas: "message.printscreensDatas", port: window.location.port}));
-
-      var elementSelectedIndex = JSON.parse(window.sessionStorage.getItem('_toolbarCurrentPage')).index;
-      if (!isNaN(elementSelectedIndex) ) {
-        printscreensListItems[elementSelectedIndex].classList.add("active");
-        printscreensListItems[elementSelectedIndex].scrollIntoView();
-      };
-    });
-
-    for (var i = 0; i < printscreensListItems.length; i++) {
-        printscreensListItems[i].addEventListener('click', getItemSelected.bind(null, i), false);
+    for (var i = 0; i < self.printscreensListItems.length; i++) {
+        self.printscreensListItems[i].addEventListener('click', self.getItemSelected.bind(null, i), false);
     }
 
-    generatePSBtn.addEventListener('click', function (e) {
-      if (!socket.connected) {
-        alert("Wow ! It looks like the socket server is not started");
-        return;
-      };
-      generatePSBtn.disabled = true;
-      socket.emit('doPrintscreens', {port: window.location.port});
-    });
+    self.generatePSBtn.addEventListener('click', self.generatePrintscreens);
+  };
 
-    socket.on('printScreensEnded', function(message){
-      generatePSBtn.disabled = false;
-      printscreensList.innerHTML = printscreensTemplate({printscreensDatas: message.printscreensDatas, port: window.location.port})
-      //document.location.reload();
-    });
+
+  this.generatePrintscreens = function generatePrintscreens (e) {
+    if (!self.socket.connected) {
+      alert("Wow ! It looks like the socket server is not started");
+      return;
+    };
+    generatePSBtn.disabled = true;
+    self.socket.emit('doPrintscreens', {port: window.location.port});
   }
 
-  this.init();
+
+  this.getItemSelected = function getItemSelected (index) {
+    var currentPage = {index: index, isToolbarCollapsed: self.isToolbarCollapsed};
+    window.sessionStorage.setItem('_toolbarCurrentPage', JSON.stringify(currentPage));
+  };
 
   this.toolbarStatusManager = function toolbarStatusManager () {
     if (this.isToolbarCollapsed) {
@@ -71,7 +75,12 @@ var TemplateViewerToolbar = function TemplateViewerToolbar (socketServerPort) {
       this.toolBar.classList.add("collapsed");
     }
     this.isToolbarCollapsed = !this.isToolbarCollapsed;
-  }
+  };
+
+  this.socket.on('printScreensEnded', function(message){
+    self.generatePSBtn.disabled = false;
+    self.printscreensList.innerHTML = printscreensTemplate({printscreensDatas: message.printscreensDatas, port: window.location.port});
+  });
 }
 
 module.exports = TemplateViewerToolbar;
