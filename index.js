@@ -13,7 +13,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 // @param {Object} options - Options of the module
 //  options.tplToRender {Array}: Array of html file to rendered. Default : empty. NOTE : Avoid a big number of file or else your computer can be very slow
 //  options.rootDir {String}: Root directory for printscreens. **PRINTSCREENS** ARE ALWAYS PUT IN "printscreens" folder - Default : ".public/". NOTE : if the directory doesn't exist it will be created
-//  option.port {Number}: Server port.
+//  option.port {Number}: Server port. | Default 3000
 //  option.optimization {Boolean}: Precise if you want to optimize the printscreen rendering. When it sets to "YES", ONLY new pages are rendered, the old one keep their old image - Default : true
 
 // @returns {Array} : Array of objects 
