@@ -37,7 +37,7 @@ Note : We use "gulp-data" because the module return an array of objects. And gul
 	- port {Number}: Server port. - Default 3000
 	- optimization {Boolean}: Precise if you want to optimize the printscreen rendering. When it sets to "YES", ONLY new pages are rendered, the old one keep their old image - Default : true
 - Return :
-	- Array of objects. Example of object : 
+	- Array of objects. Example of object : <br> 
 **{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**
 
 
