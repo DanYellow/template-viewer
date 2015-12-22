@@ -104,15 +104,6 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
   };
 
   return this.init(options);
-
-  
-  
-
-  return this.init(options);
-
-
-
-
 };
 
 module.exports = PrintscreensDatas;
