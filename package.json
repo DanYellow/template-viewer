@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/DanYellow/template-viewer#readme",
   "devDependencies": {
-    "express": "^4.13.3",
     "object-assign": "^4.0.1",
-    "pageres": "^3.0.2"
+    "pageres": "^3.0.2",
+    "slugify-url": "^1.2.0"
   }
 }
