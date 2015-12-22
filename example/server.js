@@ -10,5 +10,7 @@ var server = http.createServer(function(req, res) {
   serve(req, res, done);
 });
 
-server.listen(8000);
+server.listen(8000, function(){
+	console.log("Server started at port : 8000");
+});
 
