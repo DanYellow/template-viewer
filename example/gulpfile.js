@@ -6,7 +6,7 @@ var data = require('gulp-data');
 
 gulp.task('json-test', function() {
   return gulp.src('./index.html')
-    .pipe(data(hello({tplToRender: ['index'], port:8000, rootDir:'./public'}) ))
+    .pipe(data(hello({tplToRender: ['index'], port:8000, rootDir:'./public', optimization: false}) ))
     .pipe(swig())
     .pipe(gulp.dest('./public/'));
 });
