@@ -2,7 +2,7 @@
   "name": "template-viewer",
   "version": "1.0.0",
   "description": "A node module to generate templates viewer for your html project ",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,19 +17,8 @@
   },
   "homepage": "https://github.com/DanYellow/template-viewer#readme",
   "devDependencies": {
-    "browserify": "^12.0.1",
-    "browserify-shim": "^3.8.11",
     "express": "^4.13.3",
-    "handlebars": "^1.3.0",
-    "hbsfy": "^2.4.1",
     "object-assign": "^4.0.1",
-    "pageres": "^3.0.2",
-    "socket.io": "^1.3.7",
-    "socket.io-client": "^1.3.7"
-  },
-  "browserify": {
-    "transform": [
-      "hbsfy"
-    ]
+    "pageres": "^3.0.2"
   }
 }
