@@ -36,12 +36,13 @@ Note : We use "gulp-data" because the module return an array of objects. And gul
 	- rootDir {String}: Root directory for printscreens. **PRINTSCREENS** ARE ALWAYS PUT IN "printscreens" folder - Default : ".public/".
 	- port {Number}: Server port. - Default 3000
 	- optimization {Boolean}: Precise if you want to optimize the printscreen rendering. When it sets to "YES", ONLY new pages are rendered, the old one keep their old image - Default : true
-@returns {Array} : Array of objects. Example of object : 
+- Return :
+	- Array of objects. Example of object : 
 **{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**
 
 
 ## Note :
-A project is availaible to test. It's in the folder "example"
+A project is availaible to test. It's in the folder "example".
 To start it :
 - cd example
 - npm install 
