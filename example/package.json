@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "finalhandler": "^0.4.1",
     "gulp": "^3.9.0",
     "gulp-data": "^1.2.1",
     "gulp-swig": "^0.8.0",
+    "serve-static": "^1.10.0",
     "template-viewer": "https://github.com/DanYellow/template-viewer#server"
   }
 }

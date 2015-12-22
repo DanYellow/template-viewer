@@ -8,8 +8,14 @@
 	npm install https://github.com/DanYellow/template-viewer<br>
 	cd /Users/jean-louisdanielo/Documents/Sites/toastNode/node_modules/template-viewer <br>
 	browserify foo.js -o bundle.js<br>
-
 </p>
-<script type="text/javascript" src="bundle.js"></script>
+<ul>
+{% for template in templates %}
+  <li>
+    {{ template.name }} | {{ template.imgPath }} | {{ template.url }}
+  </li>
+{% endfor %}
+</ul>
+
 </body>
 </html>

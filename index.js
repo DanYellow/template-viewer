@@ -34,6 +34,35 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
       fs.mkdirSync(opts.rootDir);
     };
 
+    var generatePrintscreens = function generatePrintscreens () {
+      var files = fs.readdirSync(opts.rootDir);
+      files = files.filter(function(file) {
+        // We want only "html" files and files wanted
+        return file.substr(-5) === '.html' && opts.tplToRender.indexOf(file.split('.html')[0]) > -1;
+      }).map(function(file) {
+        // Prefix every html file by the root for pageres
+        return 'http://127.0.0.1:' + opts.port + '/' + file;
+      });
+
+      filesCountMax = files.length;
+      files.forEach(function(file) {
+        // Prefix every html file by the root
+        var pageres = new Pageres()
+            .src(file, ['1000x1000'], {
+              crop: false,
+              filename: '<%= url %>',
+              hide: ['#pages-overview-toolbar', '#__bs_notify__'],
+              format: 'jpg',
+            })
+            .dest(printscreensDestDirectory)
+            .run()
+            .then(() => dispatchGroupEmit());
+      });
+      return null;
+    }
+
+    generatePrintscreens()
+
     // @generatePrintScreensDatas
     // @desc : Generate a JSON Object contained every datas of the printscreens
     // @returs JSON Object
@@ -59,7 +88,7 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
             url = tplName + '.html';
             imgPath = 'http://127.0.0.1:' + opts.port + '/printscreens/' + fileName + path.extname(file);
             if (imageFileTypeAccepted.indexOf(path.extname(file)) > -1) {
-              var tplToolbarObject = {name: tplName, imgPath: imgPath, path: url};
+              var tplToolbarObject = {name: tplName, imgPath: imgPath, url: url};
               printscreensArray.push(tplToolbarObject);
             }
           });
@@ -74,32 +103,10 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
     return generatePrintScreensDatas();
   };
 
-  
-  this.generatePrintscreens = function() {
-    var files = fs.readdirSync(opts.rootDir);
-    files = files.filter(function(file) {
-      // We want only "html" files and files wanted
-      return file.substr(-5) === '.html' && opts.tplToRender.indexOf(file.split('.html')[0]) > -1;
-    }).map(function(file) {
-      // Prefix every html file by the root for pageres
-      return 'http://127.0.0.1:' + opts.port + '/' + file;
-    });
+  return this.init(options);
 
-    filesCountMax = files.length;
-    files.forEach(function(file) {
-      // Prefix every html file by the root
-      var pageres = new Pageres()
-          .src(file, ['1000x1000'], {
-            crop: false,
-            filename: '<%= url %>',
-            hide: ['#pages-overview-toolbar', '#__bs_notify__'],
-            format: 'jpg',
-          })
-          .dest(printscreensDestDirectory)
-          .run()
-          .then(() => dispatchGroupEmit());
-    });
-  }
+  
+  
 
   return this.init(options);
 
