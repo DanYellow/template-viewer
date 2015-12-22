@@ -22,10 +22,9 @@ gulp.task('my-task', function() {
     .pipe('__your_gulp_code__') <- your template engine rendering
     .pipe('__your_gulp_code__'); <- Files destination 
 });
-
+```
 3. And start your gulp
 
-```
 And _voila_
 
 Note : We use "gulp-data" because the module return an array of objects. And gulp-data is the best options to make it available for your templates.
