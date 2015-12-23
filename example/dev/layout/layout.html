@@ -1,11 +1,182 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>An example page</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>An example page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <style type="text/css">
+       #pages-overview-toolbar {
+  position: fixed;
+  bottom: 0;
+  height: 250px;
+  background-color: #f9f9f9;
+  width: 100%;
+  z-index: 9999;
+  border-top: 3px solid #1a2a35;
+  transition: bottom .3s;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#pages-overview-toolbar * {
+  padding: 0;
+  margin: 0;
+}
+
+#pages-overview-toolbar button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+#pages-overview-toolbar .bordered {
+  border: 1px solid black;
+  padding: 5px 8px;
+}
+
+#pages-overview-toolbar .bordered:disabled {
+  border: 1px solid grey;
+  color: grey;
+  opacity: .5;
+}
+
+#pages-overview-toolbar.collapsed {
+  bottom: -196px;
+}
+
+#pages-overview-toolbar.collapsed #toolbar__container {
+  height: 51px;
+}
+
+#pages-overview-toolbar #toolbar__container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  width: calc(100% - 50px);
+}
+
+#pages-overview-toolbar #toolbar__display-manager {
+  opacity: .8;
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  right: 0;
+  width: 50px;
+  background-color: white;
+  border-left: 1px solid #1a2a35;
+}
+
+#pages-overview-toolbar ul.printscreens-list {
+  list-style: none;
+  white-space: nowrap;
+  font-size: 0;
+}
+
+#pages-overview-toolbar ul.printscreens-list li {
+  display: inline-block;
+  text-align: center;
+  width: 230px;
+  vertical-align: top;
+  font-size: 12px;
+  padding-bottom: 6px;
+}
+
+#pages-overview-toolbar ul.printscreens-list li.active {
+  background-color: #e7e7e7;
+}
+
+#pages-overview-toolbar ul.printscreens-list li.printscreens-list__item:hover {
+  background-color: #f2f2f2;
+}
+
+#pages-overview-toolbar ul.printscreens-list li.printscreens-list__item a {
+  text-transform: capitalize;
+}
+
+#pages-overview-toolbar ul.printscreens-list li .text-container {
+  display: table;
+  position: relative;
+  width: 100%;
+  height: 35px;
+  overflow: hidden;
+  border-bottom: 1px solid #b5c5d0;
+  border-left: 1px solid #b5c5d0;
+}
+
+#pages-overview-toolbar ul.printscreens-list li .text-container p {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: normal;
+  padding: 0 13px;
+}
+
+#pages-overview-toolbar ul.printscreens-list li:first-child {
+  width: 160px;
+  color: white;
+}
+
+#pages-overview-toolbar ul.printscreens-list li:first-child .text-container {
+  background-color: #1a2a35;
+  border-left: none;
+  border-bottom: 1px solid #1a2a35;
+}
+
+#pages-overview-toolbar ul.printscreens-list li figure {
+  width: 177px;
+  height: 177px;
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid #b5c5d0;
+  margin-top: 14px;
+}
+
+#pages-overview-toolbar ul.printscreens-list li a {
+  display: inline;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#pages-overview-toolbar ul.printscreens-list li img {
+  height: 100%;
+  width: auto;
+  vertical-align: top;
+}
+
+#pages-overview-toolbar #actions ul {
+  width: inherit;
+  margin-top: 15px;
+}
+
+#pages-overview-toolbar #actions ul li {
+  color: black;
+}
+
+
+    </style>
 </head>
 <body>
 {% block main %}{% endblock %}
 
+<footer id="pages-overview-toolbar">
+  <div id="toolbar__container">
+    <ul class="printscreens-list">
+        <li>
+          <div class="text-container"><p><a href="http://127.0.0.1:{{ port }}">Pages Overview</a></p></div>
+          <nav id="actions">
+            <ul></ul>
+          </nav>
+        </li>
+        {% for printscreenObj in templates %}
+            <li class="printscreens-list__item">
+                <a href="{{ printscreenObj.url }}">
+                    <div class="text-container"><p>{{ printscreenObj.name }}</p></div>
+                    <figure><img src="{{ printscreenObj.imgPath }}" alt=""></figure>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+  </div>
+</footer>
 </body>
 </html>
