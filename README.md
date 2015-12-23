@@ -3,9 +3,10 @@ template-viewer is a node module to generate printscreens of your html projects.
 
 
 ##Dev dependencies
-- object-assign | Version : "^4.0.1"
+- object-assign | Version : "4.0.1"
 - pageres | Version : "3.0.2"
-- slugify-url | Version : 1.2.0"
+- slugify-url | Version : "1.2.0"
+- underscore | Version : "1.8.3
 
 ## How use it
 1. Install the node module : 
@@ -16,12 +17,15 @@ cd node_modules/template-viewer && npm install
 ```
 var hello = require('template-viewer');
 var data = require('gulp-data');
+
 gulp.task('my-task', function() {
   return gulp.src('__your_gulp_code__') <- your html files sources
     .pipe(data(hello({tplToRender: ['index'], port:8000, rootDir:'./public', optimization: false}) ))
     .pipe('__your_gulp_code__') <- your template engine rendering
     .pipe('__your_gulp_code__'); <- Files destination 
 });
+
+gulp.task('default', ['my-task']);
 ```
 3. And start your gulp
 
@@ -40,7 +44,7 @@ Note : We use "gulp-data" because the module return an array of objects. And gul
 - Return :
 	- Array of objects. Example of object : <br> 
 **{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**<br>
-	Key 'templates'
+	Key : 'templates'
 	- Current server port. Key : 'port'
 
 
