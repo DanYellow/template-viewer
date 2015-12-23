@@ -39,14 +39,17 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
 
     var printscreensDestDirectory = opts.dist + '/printscreens';
     this.files = [];
+    // We check if the distant directory (where the source are moved) exists
     if (!fs.existsSync(opts.dist)) {
       fs.mkdirSync(opts.dist);
     };
 
+    // We check if the prinscreens directory exists in the dist directory
     if (!fs.existsSync(printscreensDestDirectory)) {
       fs.mkdirSync(printscreensDestDirectory);
     };
 
+    // We check if the directory work exists.
     if (!fs.existsSync(opts.src)) {
       console.log("This directory doesn't exists !");
       return;
@@ -56,7 +59,7 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
       this.files = fs.readdirSync(opts.src);
 
       this.files = this.files.filter(function(file) {
-        // We want only "html" files and files wanted
+        // We want only "html" files and files wanted for screenshots
         return file.substr(-5) === opts.tplExtension && opts.tplToRender.indexOf(file.split(opts.tplExtension)[0]) > -1;
       }).map(function(file) {
         // Prefix every html file by the root for pageres
