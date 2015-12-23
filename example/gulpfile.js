@@ -4,11 +4,11 @@ var swig = require('gulp-swig');
 var data = require('gulp-data');
 
 
-gulp.task('json-test', function() {
-  return gulp.src('./index.html')
-    .pipe(data(hello({tplToRender: ['index'], port:8000, rootDir:'./public', optimization: false}) ))
+gulp.task('template-viewer-example', function() {
+  return gulp.src('./dev/*.html')
+    .pipe(data(hello({tplToRender: ['index', 'settings'], port:8000, src:'./dev', optimization: true}) ))
     .pipe(swig())
-    .pipe(gulp.dest('./public/'));
+    .pipe(gulp.dest('./public'));
 });
 
-gulp.task('default', ['json-test']);
+gulp.task('default', ['template-viewer-example']);
