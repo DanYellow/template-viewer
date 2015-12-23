@@ -41,9 +41,10 @@ Note : We use "gulp-data" because the module return an array of objects. And gul
     - port {Number}: Server port. | **Default 3000**
     - optimization {Boolean}: Precise if you want to optimize the printscreen rendering. When it sets to "YES", ONLY new pages are rendered, the old one keep their old image | **Default : true**
     - tplExtension {String}: Extension of your source file | **Default ".html"**
+    - delayForOldFiles {Number}: Delay (in milliseconds) before recreate of screenshot already here | **Default 300000 (5 minutes)**
 - Return : An object.
     - Key 'templates' : Array of objects. Example of object : <br> 
-**{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**<
+**{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**
     - Key 'port' : Current server port 
 
 
