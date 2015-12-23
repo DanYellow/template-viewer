@@ -108,7 +108,7 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
       }
 
 
-      return {templates: printscreensArray};
+      return {templates: printscreensArray, port: opts.port};
     };
 
     function pageRendering (array, directory) {
