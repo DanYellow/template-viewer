@@ -6,7 +6,7 @@ var data = require('gulp-data');
 
 gulp.task('template-viewer-example', function() {
   return gulp.src('./dev/*.html')
-    .pipe(data(hello({tplToRender: ['index', 'settings'], port:8000, src:'./dev', optimization: false}) ))
+    .pipe(data(hello({tplToRender: ['index', 'settings'], port:8000, src:'./dev', optimization: true, delayForOldFiles: 300000}) ))
     .pipe(swig())
     .pipe(gulp.dest('./public'));
 });
