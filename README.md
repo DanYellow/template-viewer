@@ -39,7 +39,9 @@ Note : We use "gulp-data" because the module return an array of objects. And gul
 	- tplExtension {String}: Extension of your source file | Default ".html"
 - Return :
 	- Array of objects. Example of object : <br> 
-**{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**
+**{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**<br>
+	Key 'templates'
+	- Current server port. Key : 'port'
 
 
 ## Note :
