@@ -32,9 +32,11 @@ Note : We use "gulp-data" because the module return an array of objects. And gul
 ## Property :
 - options :
 	- tplToRender {Array}: Array of templates to render 
-	- rootDir {String}: Root directory for printscreens. **PRINTSCREENS** ARE ALWAYS PUT IN "printscreens" folder - Default : ".public/".
+	- dist {String}: directory destination for printscreens. **PRINTSCREENS** ARE ALWAYS PUT IN "printscreens" folder - Default : ".public/". Note : If this directory don't exist he will be created
+	- src {String}: Directory of source files | Default './dev'
 	- port {Number}: Server port. - Default 3000
 	- optimization {Boolean}: Precise if you want to optimize the printscreen rendering. When it sets to "YES", ONLY new pages are rendered, the old one keep their old image - Default : true
+	- tplExtension {String}: Extension of your source file | Default ".html"
 - Return :
 	- Array of objects. Example of object : <br> 
 **{name: __name_of_the_template__ (aka name of the html file), imgPath: __image_path__, url: __link_to_the_template__}**
