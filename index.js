@@ -17,6 +17,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 //  option.port {Number}: Server port. | Default 3000
 //  option.optimization {Boolean}: Precise if you want to optimize the printscreen rendering. When it sets to "YES", ONLY new pages are rendered, the old one keep their old image - Default : true
 //  option.tplExtension {String}: Extension of your source file | Default ".html"
+//  option.delayForOldFiles {Number}: Delay (in milliseconds) to printscreens the old files even if optimization parameters is set to "true". If the value equals 0. It disable the option.
 
 // @returns {Array} : Array of objects 
 var PrintscreensDatas = function PrintscreensDatas(options) {
@@ -35,6 +36,7 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
     if (!opts.port) opts.port = 3000;
     if (!opts.tplExtension) opts.tplExtension = '.html';
     if (_.isUndefined(opts.optimization)) opts.optimization = true;
+    if (!opts.delayForOldFiles) opts.delayForOldFiles = 300000;
     opts.imgExtension = 'jpg';
 
     var printscreensDestDirectory = opts.dist + '/printscreens';
@@ -66,19 +68,36 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
         return 'http://127.0.0.1:' + opts.port + '/' + file;
       });
       
+      // Array of every files contains the _dist_/printscreens/
       var imgInTheDirectory = fs.readdirSync(printscreensDestDirectory);
+      // Array of every potential image which will be created
       var futureFilesInTheDirectory = this.files.map(function(file) { return slugify(file) + '.' + opts.imgExtension });
+      
+
+      var oldFilesToRender = imgInTheDirectory.filter(function(file) {
+        // We get every files with a mTime (last modified date) superior to opts.delayForOldFiles
+        return (new Date().getTime() - fs.lstatSync(printscreensDestDirectory + '/' +  file).mtime.getTime()) > opts.delayForOldFiles;
+      }).map(function(file) {
+        // We map their filename to match the url name
+        newFile = file.replace('.' + opts.imgExtension, '');
+        newFile = newFile.split('!')[newFile.split('!').length - 1];
+        return 'http://127.0.0.1:' + opts.port + '/' + newFile;
+      });
+      oldFilesToRender = opts.delayForOldFiles === 0 ? [] : oldFilesToRender;
+      
+      // Array of every new pages without its printscreens
       var newPagesURL = _.difference(futureFilesInTheDirectory, imgInTheDirectory).map(function(file) {
         newFile = file.replace('.' + opts.imgExtension, '');
         newFile = newFile.split('!')[newFile.split('!').length - 1];
         return 'http://127.0.0.1:' + opts.port + '/' + newFile;
       });
-
+      newPagesURL = newPagesURL.concat(oldFilesToRender);
+      
       filesCountMax = opts.optimization === true ? newPagesURL.length : this.files.length;
       
       // If user want optimization we render only image of new pages
       var pagesURL = opts.optimization === true ? newPagesURL : this.files;
-      
+    
       pageRendering(pagesURL, printscreensDestDirectory);
     }
 
