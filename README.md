@@ -11,7 +11,7 @@ template-viewer is a node module to generate printscreens of your html projects.
 ## How use it
 1. Install the node module : 
 npm install https://github.com/DanYellow/template-viewer#server -D
-Because the module is node on npm yet. You have to install manually its dependencies :
+Because the module is not on npm yet. You have to install manually its dependencies :
 cd node_modules/template-viewer && npm install
 2. Add it to your gulpfile.js
 ```
