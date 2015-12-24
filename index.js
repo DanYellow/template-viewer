@@ -64,8 +64,9 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
         // We want only "html" files and files wanted for screenshots
         return file.substr(-5) === opts.tplExtension && opts.tplToRender.indexOf(file.split(opts.tplExtension)[0]) > -1;
       }).map(function(file) {
+        var finalFileName = file.replace(opts.tplExtension, '.html');
         // Prefix every html file by the root for pageres
-        return 'http://127.0.0.1:' + opts.port + '/' + file;
+        return 'http://127.0.0.1:' + opts.port + '/' + finalFileName;
       });
       
       // Array of every files contains the _dist_/printscreens/
