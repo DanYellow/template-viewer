@@ -1,5 +1,5 @@
 # template-viewer
-template-viewer is a node module to generate printscreens of your html projects. It works as a gulp task (see example/gulpfile to see examples)
+template-viewer is a node module to generate printscreens of your html projects. But there is more : it create a javascript object to inject in your templates, so you can create a toolbar (see example) to access quickly to every templates of your project.
 
 
 ##Dependencies
