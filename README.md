@@ -18,7 +18,7 @@ var data = require('gulp-data');
 
 gulp.task('my-task', function() {
   return gulp.src('__your_gulp_code__') <- your html files sources
-    .pipe(data(hello({tplToRender: ['index'], port:8000, rootDir:'./public', optimization: false}) ))
+    .pipe(data(hello({tplToRender: ['index'], port:3000, rootDir:'./public', optimization: false}) ))
     .pipe('__your_gulp_code__') <- your template engine rendering
     .pipe('__your_gulp_code__'); <- Files destination 
 });
