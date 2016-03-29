@@ -1,8 +1,8 @@
 # template-viewer
-template-viewer is a node module to generate printscreens of your html projects. It works as a gulp task (see example/gulpfile to see examples)
+template-viewer is a node module to generate printscreens of your html projects. But there is more : it create a javascript object to inject in your templates, so you can create a toolbar (see example) to access quickly to every templates of your project.
 
 
-##Dev dependencies
+##Dependencies
 - object-assign | Version : "4.0.1"
 - pageres | Version : "3.0.2"
 - slugify-url | Version : "1.2.0"
@@ -11,8 +11,6 @@ template-viewer is a node module to generate printscreens of your html projects.
 ## How use it
 1. Install the node module : 
 npm install https://github.com/DanYellow/template-viewer#server -D
-Because the module is node on npm yet. You have to install manually its dependencies :
-cd node_modules/template-viewer && npm install
 2. Add it to your gulpfile.js
 ```
 var hello = require('template-viewer');
@@ -20,7 +18,7 @@ var data = require('gulp-data');
 
 gulp.task('my-task', function() {
   return gulp.src('__your_gulp_code__') <- your html files sources
-    .pipe(data(hello({tplToRender: ['index'], port:8000, rootDir:'./public', optimization: false}) ))
+    .pipe(data(hello({tplToRender: ['index'], port:3000, rootDir:'./public', optimization: false}) ))
     .pipe('__your_gulp_code__') <- your template engine rendering
     .pipe('__your_gulp_code__'); <- Files destination 
 });

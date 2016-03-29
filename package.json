@@ -16,7 +16,7 @@
     "url": "https://github.com/DanYellow/template-viewer/issues"
   },
   "homepage": "https://github.com/DanYellow/template-viewer#readme",
-  "devDependencies": {
+  "dependencies": {
     "object-assign": "^4.0.1",
     "pageres": "^3.0.2",
     "slugify-url": "^1.2.0",

@@ -64,8 +64,9 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
         // We want only "html" files and files wanted for screenshots
         return file.substr(-5) === opts.tplExtension && opts.tplToRender.indexOf(file.split(opts.tplExtension)[0]) > -1;
       }).map(function(file) {
+        var finalFileName = file.replace(opts.tplExtension, '.html');
         // Prefix every html file by the root for pageres
-        return 'http://127.0.0.1:' + opts.port + '/' + file;
+        return 'http://127.0.0.1:' + opts.port + '/' + finalFileName;
       });
       
       // Array of every files contains the _dist_/printscreens/
@@ -105,7 +106,7 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
     
     // @generatePrintScreensDatas
     // @desc : Generate a JSON Object contained every datas of the printscreens
-    // @returs JSON Object
+    // @returns Array of Objects
     var generatePrintScreensDatas = function generatePrintScreensDatas() {
       var printscreenPath = printscreensDestDirectory;
       var printscreensArray = [];
@@ -135,8 +136,6 @@ var PrintscreensDatas = function PrintscreensDatas(options) {
 
     function pageRendering (array, directory) {
       array.forEach(function(file) {
-        // Prefix every html file by the root
-
           var pageres = new Pageres()
             .src(file, ['1000x1000'], {
               crop: false,
