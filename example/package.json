@@ -8,7 +8,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "finalhandler": "^0.4.1",
     "gulp": "^3.9.0",
     "gulp-data": "^1.2.1",
